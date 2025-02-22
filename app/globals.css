@@ -25,3 +25,20 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Layout Auth - Grafico */
+.bg-cover {
+  background-image: url("/grafico.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 1280px) {
+  .bg-cover {
+    background-image: url("/grafico.svg");
+    background-size: contain;
+    background-position: 0 10rem;
+    background-repeat: no-repeat;
+  }
+}
