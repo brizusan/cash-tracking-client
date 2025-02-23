@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// Schemas Auth - Register - Login
 export const registerSchema = z
   .object({
     email: z
@@ -38,4 +39,45 @@ export const tokenSchema = z
   .min(6, { message: "Token no valido" })
   .max(6, { message: "Token no valido" });
 
+export const userSchema = z.object({
+  id: z.number(),
+  email: z.string().email(),
+  name: z.string(),
+});
+
+export const ResetPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, { message: "El Password debe ser de al menos 8 caracteres" }),
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "Los Passwords no son iguales",
+    path: ["password_confirmation"],
+  });
+
+export type Email = z.infer<typeof emailValidateSchema>;
 export type Register = z.infer<typeof registerSchema>;
+export type User = z.infer<typeof userSchema>;
+
+// Schemas Budget
+export const DraftBudgetSchema = z.object({
+  name: z
+    .string()
+    .min(1, { message: "El Nombre del presupuesto es obligatorio" }),
+  amount: z.coerce
+    .number({ message: "Cantidad no válida" })
+    .min(1, { message: "Cantidad no válida" }),
+});
+
+export const BudgetSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  amount: z.coerce.number(),
+  userID: z.number(),
+});
+
+export const ArrayBudgetSchema = z.array(BudgetSchema);
+
+export type Budget = z.infer<typeof BudgetSchema>;

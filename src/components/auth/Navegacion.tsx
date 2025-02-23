@@ -17,15 +17,17 @@ const routes = [
   },
 ];
 
+const NoNavitatedRoutes = [
+  "/auth/confirm-account",
+  "/auth/confirm-password",
+  "/auth/forgot-password",
+  "/auth/reset-password",
+];
+
 export const Navegacion = () => {
   const pathname = usePathname();
 
-  if (
-    pathname === "/auth/confirm-account" ||
-    pathname === "/auth/confirm-password"
-  ) {
-    return null;
-  }
+  if (NoNavitatedRoutes.includes(pathname)) return null;
 
   return (
     <nav className="flex justify-evenly gap-4 py-8">

@@ -1,11 +1,13 @@
 "use client";
 
 import { loginAccount } from "@/src/actions/login-account";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "react-toastify";
 
 export const FormLogin = () => {
+  const router = useRouter();
   const [state, trigger] = useFormState(loginAccount, {
     errors: [],
     success: "",
@@ -21,7 +23,7 @@ export const FormLogin = () => {
     if (state.success) {
       toast.success(state.success, {
         onClose: () => {
-          alert("Redireccinando a la pagina principal");
+          router.replace("/admin");
         },
       });
     }
