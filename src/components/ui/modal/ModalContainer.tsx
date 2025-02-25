@@ -11,7 +11,7 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 
 export const ModalContainer = () => {
   const router = useRouter();
@@ -24,15 +24,18 @@ export const ModalContainer = () => {
   //Componente de agregar Gasto
   const newExpense = searchParams.get("newExpense");
   const editExpense = searchParams.get("editExpense");
+  const deleteExpense = searchParams.get("deleteExpense");
 
   const getComponentName = () => {
     if (newExpense) return "newExpense";
     if (editExpense) return "editExpense";
+    if (deleteExpense) return "deleteExpense";
+
     return null;
   };
 
   const componentName = getComponentName();
-  const componentsMap: Record<string, React.FC> = {
+  const componentsMap = {
     newExpense: NewExpenseForm,
     editExpense: EditExpenseForm,
     deleteExpense: DeleteExpenseForm,
@@ -76,7 +79,9 @@ export const ModalContainer = () => {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="w-full max-w-5xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
-                  {ComponentToRender !== null ? <ComponentToRender /> : null}
+                  {ComponentToRender !== null ? (
+                    <ComponentToRender closeModal={closeModal} />
+                  ) : null}
                 </DialogPanel>
               </TransitionChild>
             </div>

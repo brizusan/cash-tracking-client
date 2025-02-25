@@ -13,7 +13,11 @@ import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "react-toastify";
 
-export const EditExpenseForm = () => {
+type EditExpenseForm = {
+  closeModal: () => void;
+};
+
+export const EditExpenseForm = ({ closeModal }: EditExpenseForm) => {
   const [expense, setExpense] = useState<Expense>();
   const router = useRouter();
   const pathname = usePathname();
@@ -46,6 +50,7 @@ export const EditExpenseForm = () => {
   useEffect(() => {
     if (state.success) {
       toast.success(state.success);
+      closeModal();
       router.push(pathname);
     }
   }, [state.success]);

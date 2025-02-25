@@ -39,7 +39,9 @@ export const ExpenseMenu = ({
               <button
                 type="button"
                 className="block px-3 py-1 text-sm leading-6 text-gray-900"
-                onClick={() => router.push(`?editExpense=${expenseId}&showModal=true`)}
+                onClick={() =>
+                  router.push(`?editExpense=${expenseId}&showModal=true`)
+                }
               >
                 Editar Gasto
               </button>
@@ -49,7 +51,9 @@ export const ExpenseMenu = ({
               <button
                 type="button"
                 className="block px-3 py-1 text-sm leading-6 text-red-500"
-                onClick={() => router.push(`?deleteBudget=${expenseId}`)}
+                onClick={() =>
+                  router.push(`?deleteExpense=${expenseId}&showModal=true`)
+                }
               >
                 Eliminar Gasto
               </button>
