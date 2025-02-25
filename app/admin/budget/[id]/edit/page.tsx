@@ -1,28 +1,26 @@
-import getToken from "@/src/auth/token";
+import { getBudgetById } from "@/src/services/budgets";
 import { Budget } from "@/src/types";
+import { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { EditForm } from "./components/EditForm";
 
-async function getBudgetById(id: Budget["id"]): Promise<Budget> {
-  const res = await fetch(`${process.env.API_URL}/budgets/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${getToken()}`,
-    },
-  });
-  if (!res.ok) return notFound();
-  const data = await res.json();
-  return data.budget;
+type Props = {
+  params: Promise<{ id: Budget["id"] }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = (await params).id;
+  const budget = await getBudgetById(id);
+  return {
+    title: ` ${budget.name} - CrashTracking`,
+    description: `Editar presupuesto ${budget.name} , actualizar informacion`,
+    keywords: "editar, presupuesto, crashtracking, update",
+  };
 }
 
-export default async function BudgetEditPage({
-  params,
-}: {
-  params: { id: Budget["id"] };
-}) {
-  const budget = await getBudgetById(params.id);
-  console.log(budget);
+export default async function BudgetEditPage({ params }: Props) {
+  const id = (await params).id;
+  const budget = await getBudgetById(id);
 
   return (
     <>
@@ -43,7 +41,9 @@ export default async function BudgetEditPage({
           Volver
         </Link>
       </div>
-      <div className="p-10 mt-10  shadow-lg border "></div>
+      <section className="p-10 mt-10  shadow-lg border ">
+        <EditForm budget={budget} />
+      </section>
     </>
   );
 }

@@ -78,6 +78,33 @@ export const BudgetSchema = z.object({
   userID: z.number(),
 });
 
+export const passwordSchema = z
+  .string()
+  .min(8, { message: "Password Minimo de 8 caracteres" });
+
 export const ArrayBudgetSchema = z.array(BudgetSchema);
 
 export type Budget = z.infer<typeof BudgetSchema>;
+
+// Schemas and Types Expense
+export const DraftExpenseSchema = z.object({
+  name: z.string().min(1, { message: "El Nombre del gasto es obligatorio" }),
+  amount: z.coerce
+    .number({ message: "Cantidad no válida" })
+    .min(1, { message: "Cantidad no válida" }),
+});
+
+export const ExpenseSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  amount: z.coerce.number(),
+  budgetID: z.number(),
+});
+
+export type Expense = z.infer<typeof DraftExpenseSchema>;
+export type ResponseExpense = z.infer<typeof ExpenseSchema>;
+export const ArrayExpenseSchema = z.array(ExpenseSchema);
+export type Expenses = z.infer<typeof ArrayExpenseSchema>;
+export type BudgetResponse = z.infer<typeof BudgetSchema> & {
+  expenses: Expenses;
+};

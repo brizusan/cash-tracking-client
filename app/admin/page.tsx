@@ -1,24 +1,6 @@
-import getToken from "@/src/auth/token";
-import { BudgetItem } from "@/src/components";
-import { ArrayBudgetSchema, type Budget } from "@/src/types";
+import { BudgetItem, DeleteBudgetModal } from "@/src/components";
+import { getBudgets } from "@/src/services/budgets";
 import Link from "next/link";
-
-async function getBudgets(): Promise<Budget[]> {
-  const token = getToken();
-  const res = await fetch(`${process.env.API_URL}/budgets`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  const data = await res.json();
-
-  const result = ArrayBudgetSchema.safeParse(data.budgets);
-  if (!result.success) return [];
-  return result.data;
-}
 
 export default async function AdminPage() {
   const budgets = await getBudgets();
@@ -63,6 +45,8 @@ export default async function AdminPage() {
               <BudgetItem key={budget.id} {...budget} />
             ))}
           </ul>
+
+          <DeleteBudgetModal />
         </section>
       )}
     </>

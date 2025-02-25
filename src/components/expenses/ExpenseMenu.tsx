@@ -1,5 +1,5 @@
 "use client";
-import { Budget } from "@/src/types";
+import { ResponseExpense } from "@/src/types";
 import {
   Menu,
   MenuButton,
@@ -8,11 +8,14 @@ import {
   Transition,
 } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Fragment } from "react";
 
-export const BudgetMenu = ({ budgetId }: { budgetId: Budget["id"] }) => {
+export const ExpenseMenu = ({
+  expenseId,
+}: {
+  expenseId: ResponseExpense["id"];
+}) => {
   const router = useRouter();
 
   return (
@@ -33,29 +36,22 @@ export const BudgetMenu = ({ budgetId }: { budgetId: Budget["id"] }) => {
         >
           <MenuItems className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
             <MenuItem>
-              <Link
-                href={`admin/budget/${budgetId}`}
+              <button
+                type="button"
                 className="block px-3 py-1 text-sm leading-6 text-gray-900"
+                onClick={() => router.push(`?editExpense=${expenseId}&showModal=true`)}
               >
-                Ver Presupuesto
-              </Link>
-            </MenuItem>
-            <MenuItem>
-              <Link
-                href={`admin/budget/${budgetId}/edit`}
-                className="block px-3 py-1 text-sm leading-6 text-gray-900"
-              >
-                Editar Presupuesto
-              </Link>
+                Editar Gasto
+              </button>
             </MenuItem>
 
             <MenuItem>
               <button
                 type="button"
                 className="block px-3 py-1 text-sm leading-6 text-red-500"
-                onClick={() => router.push(`?deleteBudget=${budgetId}`)}
+                onClick={() => router.push(`?deleteBudget=${expenseId}`)}
               >
-                Eliminar Presupuesto
+                Eliminar Gasto
               </button>
             </MenuItem>
           </MenuItems>
