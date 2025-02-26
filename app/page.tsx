@@ -9,45 +9,33 @@ export const metadata: Metadata = {
   keywords: ["finanzas", "gastos", "presupuestos", "Sistema"],
 };
 
-export const navegacion = [
-  {
-    url: "/auth/login",
-    name: "Iniciar Sesión",
-  },
-  {
-    url: "/auth/register",
-    name: "Registrarme",
-  },
-];
-
-export const ItemsAccordion = [
-  {
-    id: 1,
-    title: "Organización sin esfuerzo",
-    content:
-      "Visualiza y clasifica tus gastos de forma clara con un panel intuitivo y fácil de usar",
-  },
-  {
-    id: 2,
-    title: "Presupuestos inteligentes",
-    content:
-      "Define metas financieras realistas y haz seguimiento con herramientas avanzadas de presupuestación.",
-  },
-  {
-    id: 3,
-    title: "Acceso desde cualquier lugar",
-    content:
-      "Gestiona tus finanzas en todo momento desde cualquier dispositivo.",
-  },
-  {
-    id: 4,
-    title: "Máxima seguridad",
-    content:
-      "Tus datos están protegidos con los más altos estándares de seguridad.",
-  },
-];
-
 export default function HomePage() {
+  const ItemsAccordion = [
+    {
+      id: 1,
+      title: "Organización sin esfuerzo",
+      content:
+        "Visualiza y clasifica tus gastos de forma clara con un panel intuitivo y fácil de usar",
+    },
+    {
+      id: 2,
+      title: "Presupuestos inteligentes",
+      content:
+        "Define metas financieras realistas y haz seguimiento con herramientas avanzadas de presupuestación.",
+    },
+    {
+      id: 3,
+      title: "Acceso desde cualquier lugar",
+      content:
+        "Gestiona tus finanzas en todo momento desde cualquier dispositivo.",
+    },
+    {
+      id: 4,
+      title: "Máxima seguridad",
+      content:
+        "Tus datos están protegidos con los más altos estándares de seguridad.",
+    },
+  ];
   return (
     <>
       <header className=" bg-purple-950 py-5">
@@ -56,15 +44,18 @@ export default function HomePage() {
             <Logo isHome={true} />
           </div>
           <nav className="flex flex-col lg:flex-row lg:justify-end gap-5 w-full ">
-            {navegacion.map((nav) => (
-              <Link
-                key={nav.url}
-                href={nav.url}
-                className="font-bold text-white hover:text-amber-500 uppercase text-sm text-center"
-              >
-                {nav.name}
-              </Link>
-            ))}
+            <Link
+              href={"/auth/login"}
+              className="font-bold text-white hover:text-amber-500 uppercase text-sm text-center"
+            >
+              Iniciar Sesión
+            </Link>
+            <Link
+              href={"/auth/register"}
+              className="font-bold text-white hover:text-amber-500 uppercase text-sm text-center"
+            >
+              Crear Cuenta
+            </Link>
           </nav>
         </div>
       </header>

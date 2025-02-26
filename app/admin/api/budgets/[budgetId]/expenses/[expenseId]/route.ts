@@ -1,14 +1,15 @@
 import { verifySession } from "@/src/auth/dal";
 import getToken from "@/src/auth/token";
-import { NextApiRequest } from "next";
 
 export async function GET(
-  request: NextApiRequest,
-  { params }: { params: { budgetId: string; expenseId: string } }
+  request: Request,
+  { params }: { params: Promise<{ budgetId: string; expenseId: string }> }
 ) {
   await verifySession();
 
-  const url = `${process.env.API_URL}/budgets/${params.budgetId}/expenses/${params.expenseId}`;
+  const { budgetId, expenseId } = await params;
+
+  const url = `${process.env.API_URL}/budgets/${budgetId}/expenses/${expenseId}`;
   const token = getToken();
   const res = await fetch(url, {
     method: "GET",
