@@ -108,3 +108,29 @@ export type Expenses = z.infer<typeof ArrayExpenseSchema>;
 export type BudgetResponse = z.infer<typeof BudgetSchema> & {
   expenses: Expenses;
 };
+
+// Schemas and Types Income Password - newPassword
+export const DrafUpdatePassword = z
+  .object({
+    current_password: z
+      .string()
+      .nonempty({ message: "El campo password actual es obligatorio" })
+      .min(8, { message: "Password Minimo de 8 caracteres" }),
+    password: z
+      .string()
+      .min(8, { message: "Nuevo Password Minimo de 8 caracteres" }),
+    password_confirmation: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirmation, {
+    message: "La nuevas contraseñas no coinciden",
+    path: ["password_confirmation"],
+  });
+
+// Schemas UpdateProfile
+export const DrafUpdateProfile = z.object({
+  name: z.string().min(1, { message: "El Nombre es obligatorio" }),
+  email: z
+    .string()
+    .email({ message: "Email no valido" })
+    .min(3, { message: "El campo email es obligatorio" }),
+});

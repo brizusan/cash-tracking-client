@@ -1,3 +1,11 @@
+import { ChangePasswordForm } from "@/src/components";
+
+export const metadata = {
+  title: "Cambiar Password - CrashTracking",
+  description: "Pagina de cambio de contraseña, formulario de cambio",
+  keywords: "cambiar contraseña, formulario, actualizar, crashtracking",
+};
+
 export default function ChangePasswordPage() {
   return (
     <>
@@ -8,6 +16,8 @@ export default function ChangePasswordPage() {
         Aquí puedes cambiar tu {""}
         <span className="text-amber-500">password</span>
       </p>
+
+      <ChangePasswordForm />
     </>
   );
 }

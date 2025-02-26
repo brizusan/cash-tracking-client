@@ -13,8 +13,8 @@ export default async function ProfileLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { user } = await verifySession();
-  console.log(user);
+  await verifySession();
+
   return (
     <>
       <ProfileTabs />
