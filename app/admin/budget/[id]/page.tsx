@@ -38,30 +38,37 @@ export default async function BudgetPage({ params }: Props) {
         <AddExpenseButton />
       </div>
 
-      {isEmpty && (
-        <p className="text-2xl font-bold text-center mt-10">
-          No tenemos gastos ingresados
-        </p>
-      )}
+      <section className="mt-10 ">
+        <h2 className="text-xl font-bold text-center">
+          Detalles de los gastos
+        </h2>
 
-      {!isEmpty && (
-        <section className="mt-10 ">
-          <h2 className="text-xl font-bold text-center">Gastos Registrados</h2>
+        <DetailExpenses
+          totalBudget={budget.amount}
+          expenses={budget.expenses}
+        />
 
-          <DetailExpenses
-            totalBudget={budget.amount}
-            expenses={budget.expenses}
-          />
-          <ul
-            role="list"
-            className="divide-y divide-gray-300 border shadow-lg mt-10 "
-          >
-            {budget.expenses.map((expense) => (
-              <ExpenseItem key={expense.id} {...expense} />
-            ))}
-          </ul>
-        </section>
-      )}
+        {isEmpty && (
+          <p className="text-2xl font-bold text-center mt-10">
+            No tenemos gastos ingresados
+          </p>
+        )}
+
+        {!isEmpty && (
+          <>
+            <h2 className="text-xl font-bold text-center">Listado de gastos</h2>
+
+            <ul
+              role="list"
+              className="divide-y divide-gray-300 border shadow-lg mt-10 "
+            >
+              {budget.expenses.map((expense) => (
+                <ExpenseItem key={expense.id} {...expense} />
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
 
       <ModalContainer />
     </>
